@@ -1,0 +1,61 @@
+﻿@model IEnumerable<DemoInvoice.Models.Customer>
+
+@{
+    ViewBag.Title = "Index";
+}
+<center><h2>Customer</h2></center>
+
+<p>
+    <a class="btn btn-primary btn-sm" href="/Customer/Create/"><i class="fa fa-plus fa-lg"></i></a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MobileNo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+</table>
+<style>
+    tr.even {
+        background-color: #F5F5F5 !important;
+    }
+</style>
+@* Load datatable css *@
+<link href="//cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@* Load datatable js *@
+@section Scripts{
+    <script src="//cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                "ajax": {
+                    "url": "/Customer/Loaddata",
+                    "type": "GET",
+                    "datatype": "json"
+                },
+                "columns": [
+                    { "data": "CustomerName", "autoWidth": true },
+                    { "data": "CompanyName", "autoWidth": true },
+                    { "data": "EmailId", "autoWidth": true },
+                    { "data": "MobileNo", "autoWidth": true },
+                    {
+                        "render": function (data, type, full, meta) { return '<a class="btn btn-primary btn-sm" href="/Customer/Create/' + full.CustomerId + '"><i class="fa fa-pencil fa-lg"></i></a>'; }
+                    },
+                ]
+            });
+        });
+    </script>
+}

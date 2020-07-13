@@ -1,0 +1,174 @@
+﻿@model DemoInvoice.ViewModel.InvoicePreviewViewModel
+
+@{
+    ViewBag.Title = "Invoice";
+}
+
+
+@using (Html.BeginForm())
+{
+    <br />
+    <br />
+    <div id="page-wrap">
+
+        <center> <h1>Invoice</h1></center>
+        <div id="identity">
+
+            <textarea id="address">Ayushi Arora
+Rabale MIDC
+NaviMumbai, 400701
+
+Phone: (+91) XXXXXXXXXX</textarea>
+
+            <div id="logo">
+
+
+
+                <div id="logohelp">
+                    <input id="imageloc" type="text" size="50" value="" /><br />
+                    (max width: 540px, max height: 100px)
+
+                </div>
+                <img src="~/Content/InvoiceReview/images/logo.png" />
+            </div>
+
+        </div>
+
+        <div style="clear:both"></div>
+
+        <div id="customer">
+            <div>
+                <div style="float:left" >
+                    <table border="0"  id="meta">
+                        <tr>
+                            <th colspan="2">Billing To:-</th>
+                        </tr>
+                       
+                        <tr>
+                            <td>Company Name</td>
+                            <td> @Html.DisplayTextFor(model => model.CompanyName)</td>
+                        </tr>
+                        <tr>
+                            <td>Customer Name</td>
+                            <td> @Html.DisplayTextFor(model => model.CustomerName)</td>
+                        </tr>
+                        <tr>
+                            <td>EmailId</td>
+                            <td> @Html.DisplayTextFor(model => model.EmailId)</td>
+                        </tr>
+                        <tr>
+                            <td>MobileNo</td>
+                            <td> @Html.DisplayTextFor(model => model.MobileNo)</td>
+                        </tr>
+                        <tr>
+                            <td>PurchaseOrder</td>
+                            <td> @Html.DisplayTextFor(model => model.PurchaseOrder)</td>
+                        </tr>
+                    </table>
+
+
+
+                </div>
+                <div style="float:right">
+                    <table id="meta">
+                        <tr>
+                            <td class="meta-head">Invoice #</td>
+                            <td>@Html.DisplayTextFor(model => model.InvoiceId)</td>
+                        </tr>
+                        <tr>
+
+                            <td class="meta-head">Date</td>
+                            <td>@Html.DisplayTextFor(model => model.InvoiceDate)</td>
+                        </tr>
+                        <tr>
+                            <td class="meta-head">Amount Due</td>
+                            <td><div class="due">$875.00</div></td>
+                        </tr>
+
+                    </table>
+
+                </div>
+            </div>
+            
+           
+
+            
+
+        </div>
+
+        <table id="items">
+
+            <tr>
+                <th>Item</th>
+                <th>Description</th>
+                <th>Unit Cost</th>
+                <th>Quantity</th>
+                <th>Price</th>
+            </tr>
+
+            <tr class="item-row">
+                <td class="item-name"><div class="delete-wpr"><textarea>Web Updates</textarea><a class="delete" href="javascript:;" title="Remove row">X</a></div></td>
+                <td class="description"><textarea>Monthly web updates for http://widgetcorp.com (Nov. 1 - Nov. 30, 2009)</textarea></td>
+                <td><textarea class="cost">$650.00</textarea></td>
+                <td><textarea class="qty">1</textarea></td>
+                <td><span class="price">$650.00</span></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Subtotal</td>
+                <td class="total-value"><div id="subtotal">$875.00</div></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">SalesTaxRate</td>
+                <td class="total-value"><div id="subtotal">$@Html.DisplayTextFor(model => model.SalesTaxRate)</div></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Discount</td>
+                <td class="total-value"><div id="subtotal">@Html.DisplayTextFor(model => model.Discount)</div></td>
+            </tr>
+            <tr>
+
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Total</td>
+                <td class="total-value"><div id="total">$875.00</div></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line">Amount Paid</td>
+
+                <td class="total-value"><textarea id="paid">$0.00</textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2" class="blank"> </td>
+                <td colspan="2" class="total-line balance">Balance Due</td>
+                <td class="total-value balance"><div class="due">$875.00</div></td>
+            </tr>
+
+        </table>
+
+        <div id="terms">
+            <h5>Terms</h5>
+            <textarea>NET 30 Days. Finance Charge of 1.5% will be made on unpaid balances after 30 days.</textarea>
+        </div>
+
+    </div>
+    <center><button id="printInvoice" class="btn btn-info"><i class="fa fa-print"></i> Print</button></center>
+}
+
+    <link rel='stylesheet' type='text/css' href='~/Content/InvoiceReview/css/style.css' />
+    <link href="~/Content/InvoiceReview/css/print.css" rel="stylesheet" />
+    @section Scripts{
+
+        <script>
+            $('#printInvoice').click(function () {
+                Popup($('.page-wrap').innerHTML);
+                function Popup(data) {
+                    window.print();
+                    return true;
+                }
+
+            });
+        </script>
+    }
